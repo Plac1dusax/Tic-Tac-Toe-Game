@@ -31,6 +31,19 @@ body {
 
 .cell {
   border: 1px solid black;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell:hover {
+  cursor: pointer;
+}
+
+.cell.x,
+.cell.o {
+  cursor: not-allowed;
 }
 
 .cell:first-child,
@@ -51,4 +64,36 @@ body {
 .cell:nth-child(8),
 .cell:nth-child(7) {
   border-bottom: none;
+}
+
+.x::before,
+.x::after,
+.o::before,
+.turn-x .cell:not(.x):not(.o):hover::before,
+.turn-x .cell:not(.x):not(.o):hover::after,
+.turn-o .cell:not(.x):not(.o):hover::before {
+  content: "";
+  background-color: black;
+  width: calc(var(--cell-size) * 0.15);
+  height: var(--cell-size);
+  position: absolute;
+}
+
+.x::before,
+.turn-x .cell:not(.x):not(.o):hover::before {
+  rotate: 45deg;
+}
+
+.x::after,
+.turn-x .cell:not(.x):not(.o):hover::after {
+  rotate: -45deg;
+}
+
+.o::before,
+.turn-o .cell:not(.x):not(.o):hover::before {
+  width: calc(var(--cell-size) * 0.9);
+  height: calc(var(--cell-size) * 0.9);
+  border-radius: 50%;
+  border: 8px solid black;
+  background-color: transparent;
 }
